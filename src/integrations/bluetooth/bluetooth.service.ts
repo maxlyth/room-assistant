@@ -56,7 +56,7 @@ export class BluetoothService {
     this.logger.debug(`Querying for RSSI of ${address} using hcitool`);
     try {
       const output = await execPromise(
-        `hcitool -i hci${adapterId} cc "${address}" && hcitool -i hci${adapterId} rssi "${address}"`,
+        `hcitool -i hci${adapterId} cc --ptype=dm1 "${address}" && hcitool -i hci${adapterId} rssi "${address}" && hcitool -i hci${adapterId} dc "${address}"`,
         {
           timeout: this.classicConfig.scanTimeLimit * 1000,
           killSignal: 'SIGKILL',
